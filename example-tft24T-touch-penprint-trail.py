@@ -2,9 +2,9 @@
 # A demo of LCD/TFT SCREEN DISPLAY with touch screen
 # A "penprint" is made to screen wherever the pen is touched to screen
 
-import Image
-import ImageDraw
-import ImageFont
+from PIL import Image
+from PIL import ImageDraw
+from PIL import ImageFont
 
 from lib_tft24T import TFT24T
 import RPi.GPIO as GPIO
@@ -33,14 +33,14 @@ TFT.initTOUCH(PEN)
 draw = TFT.draw()
 
 TFT.clear((255, 255, 255))
-print "Draw on the screen with a pen/stylus"
+print ("Draw on the screen with a pen/stylus")
 
 while 1:
     while not TFT.penDown():
         pass
 
     pos = TFT.penPosition()
-    print pos
+    print (pos)
     #print ""
     x2=pos[0]
     y2=pos[1]

@@ -22,8 +22,8 @@ margin = 13
 import numbers
 import time
 
-import Image
-import ImageDraw
+from PIL import Image
+from PIL import ImageDraw
 import textwrap
 
 from types import MethodType
@@ -275,7 +275,7 @@ class TFT24T():
         """
 
         if type(color) != type((0,0,0)):
-            print "clear() function colours must be in (255,255,0) form"
+            print ("clear() function colours must be in (255,255,0) form")
             exit()
         width, height = Buffer.size
         Buffer.putdata([color]*(width*height))
@@ -285,9 +285,9 @@ class TFT24T():
         """Return a PIL ImageDraw instance for drawing on the image buffer."""
         d = ImageDraw.Draw(Buffer)
         # Add custom methods to the draw object:
-        d.textrotated = MethodType(_textrotated, d, ImageDraw.Draw)
-        d.pasteimage = MethodType(_pasteimage, d, ImageDraw.Draw)
-        d.textwrapped = MethodType(_textwrapped, d, ImageDraw.Draw)
+        d.textrotated = MethodType(_textrotated, d)
+        d.pasteimage = MethodType(_pasteimage, d)
+        d.textwrapped = MethodType(_textwrapped, d)
         return d
 
     def load_wallpaper(self, filename):

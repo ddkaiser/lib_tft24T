@@ -8,9 +8,9 @@ calib_offset240 = 29   # Likely about 28
 calib_offset320 = 27   # Likely about 25
 # You may amend these 4 values from the output of this procedure
 
-import Image
-import ImageDraw
-import ImageFont
+from PIL import Image
+from PIL import ImageDraw
+from PIL import ImageFont
 
 from lib_tft24T import TFT24T
 import RPi.GPIO as GPIO
@@ -25,8 +25,8 @@ RST = 18
 LED = 23
 PEN = 24
 
-print "First pass may show penprint not tracking well on the red lines."
-print "Don't worry. Keep the stylus strictly on the red lines. Follow prompts below."
+print ("First pass may show penprint not tracking well on the red lines.")
+print ("Don't worry. Keep the stylus strictly on the red lines. Follow prompts below.")
 print
 sleep(3)
 
@@ -78,23 +78,23 @@ def avg100(channel):
     return av
 
 
-print "Run stylus along line 1 until penprints stop ..."
+print ("Run stylus along line 1 until penprints stop ...")
 x1= avg100(TFT.X)
-print "Line 1 done"
+print ("Line 1 done")
 sleep(5)
-print "Run stylus along line 2 until penprints stop ..."
+print ("Run stylus along line 2 until penprints stop ...")
 x2= avg100(TFT.X)
-print "Line 2 done"
+print ("Line 2 done")
 sleep(5)
-print "Run stylus along line 3 until penprints stop ..."
+print ("Run stylus along line 3 until penprints stop ...")
 y1= avg100(TFT.Y)
-print "Line 3 done"
+print ("Line 3 done")
 sleep(5)
-print "Run stylus along line 4 until penprints stop ..."
+print ("Run stylus along line 4 until penprints stop ...")
 y2= avg100(TFT.Y)
-print "All lines done"
-print
-print "Calibration complete. These are the 4 magic numbers you need:"
+print ("All lines done")
+print ("")
+print ("Calibration complete. These are the 4 magic numbers you need:")
 
 # calc the scaling factors from 4096 system to 240 or 320 system
 sc240= 4096*180 / (x1-x2)
@@ -104,12 +104,12 @@ sc320= 4096*260 / (y2-y1)
 offs240 = (4095-x1)*sc240/4096 - 30
 offs320 = y1*sc320/4096 -30
 
-print "Set calib_scale240 to ", sc240
-print "Set calib_scale320 to ", sc320
-print "Set calib_offset240 to ", offs240
-print "Set calib_offset320 to ", offs320
-print
-print 'These values need to go into top of the file "lib_tft24T.py"'
-print "You can also adjust the same 4 at top of THIS file."
-print "That should let you repeat this sequence,"
-print " confirming the penprints now accurately sit on the red lines"
+print ("Set calib_scale240 to ", sc240)
+print ("Set calib_scale320 to ", sc320)
+print ("Set calib_offset240 to ", offs240)
+print ("Set calib_offset320 to ", offs320)
+print ("")
+print ('These values need to go into top of the file "lib_tft24T.py"')
+print ("You can also adjust the same 4 at top of THIS file.")
+print ("That should let you repeat this sequence,")
+print (" confirming the penprints now accurately sit on the red lines")
